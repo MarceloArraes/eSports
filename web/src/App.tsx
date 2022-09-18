@@ -57,39 +57,17 @@ function App() {
                         />
                     )
                 })}
-                {/*
-        <GameBanner bannerUrl='/game-1.png'
-          title='League of Legends'
-          adsCount={4} />
-        <GameBanner bannerUrl='/game-1.png'
-          title='League of Legends'
-          adsCount={4} />
-        <GameBanner bannerUrl='/game-2.png'
-          title='Dota 2'
-          adsCount={4} />
-        <GameBanner bannerUrl='/game-3.png'
-          title='Counter Strike'
-          adsCount={4} />
-        <GameBanner bannerUrl='/game-4.png'
-          title='Apex Legends'
-          adsCount={4} />
-        <GameBanner bannerUrl='/game-5.png'
-          title='Fortnite'
-          adsCount={4} />
-        <GameBanner bannerUrl='/game-6.png'
-          title='World of warcraft'
-          adsCount={4} /> */}
             </div>
             <Dialog.Root>
                 <CreateAdBanner />
                 <Dialog.Portal>
                     <Dialog.Overlay className="bg-black/60 inset-0 fixed">
-                        <Dialog.Content className="shadow-lg shadow-black/25 fixed bg-[#2A2634] py-8 px-10 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg w-[480]">
-                            <Dialog.Title className="text-3xl font-black">
+                        <Dialog.Content className="shadow-lg shadow-black/25 fixed bg-[#2A2634] py-3 px-8 text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg w-80">
+                            <Dialog.Title className="text-xl font-black">
                                 Publique um anuncio
                             </Dialog.Title>
-                            <form className="mt-8 flex flex-col gap-4 max-h-[50vh]">
-                                <div className="flex-col gap-2 flex ">
+                            <form className="mt-2 flex flex-col gap-2 max-h-fit text-sm">
+                                <div className="flex-col gap-1 flex ">
                                     <label
                                         id="game"
                                         className="font-semibold"
@@ -99,7 +77,7 @@ function App() {
                                     </label>
                                     <Input id="game" name="game" type="text" />
                                 </div>
-                                <div className="flex-col gap-2 flex">
+                                <div className="flex-col gap-1 flex">
                                     <label htmlFor="name">
                                         Seu nome ou nickname
                                     </label>
@@ -109,7 +87,7 @@ function App() {
                                     />
                                 </div>
 
-                                <div className="flex-col gap-2 flex">
+                                <div className="flex-col gap-1 flex">
                                     <label htmlFor="yearsPlaying">
                                         Joga a quantos anos?
                                     </label>
@@ -119,7 +97,7 @@ function App() {
                                         placeholder="Tudo bem ser Zero"
                                     />
                                 </div>
-                                <div className="flex-col gap-2 flex">
+                                <div className="flex-col gap-1 flex">
                                     <label htmlFor="discord">
                                         Qual seu Discord
                                     </label>
@@ -129,8 +107,8 @@ function App() {
                                         placeholder="Usuário#0000"
                                     />
                                 </div>
-                                <div className="gap-6 flex">
-                                    <div className="flex flex-col gap-2">
+                                <div className="gap-3 flex">
+                                    <div className="flex flex-col gap-1">
                                         <label htmlFor="weekDays">
                                             Quando costuma jogar
                                         </label>
@@ -179,11 +157,11 @@ function App() {
                                             </button>
                                         </div>
                                     </div>
-                                    <div className="flex flex-col gap-2 flex-1">
+                                    <div className="flex flex-col gap-1 flex-1">
                                         <label htmlFor="hourStart">
                                             Quando horário costuma jogar?
                                         </label>
-                                        <div className="grid grid-cols-2 gap-2">
+                                        <div className="grid grid-cols-2 gap-1">
                                             <Input
                                                 id="hourStart"
                                                 type="time"
@@ -198,21 +176,21 @@ function App() {
                                     </div>
                                 </div>
 
-                                <div className="mt-2 flex gap-2 text-sm">
+                                <div className="mt-2 flex gap-1 text-sm">
                                     <input type="checkbox" />
                                     Costumo me conectar ao chat de voz
                                 </div>
 
-                                <footer className="mt-4 flex justify-end gap-4">
+                                <footer className="mt-2 flex justify-end gap-2">
                                     <Dialog.Close
                                         type="button"
-                                        className="bg-zinc-500 px-5 h-12 rounded-md font-semibold"
+                                        className="bg-zinc-500 px-5 h-12 rounded-md font-semibold text-sm"
                                     >
                                         Cancelar
                                     </Dialog.Close>
                                     <button
                                         type="submit"
-                                        className="bg-violet-500 px-5 h-12 rounded-md font-semibold flex items-center gap-3"
+                                        className="bg-violet-500 px-5 h-12 rounded-md font-semibold flex items-center gap-1 text-sm"
                                     >
                                         <GameController size={24} />
                                         Encontrar duo
