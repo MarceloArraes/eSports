@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import { Input } from './Form/Input'
 import { Check, GameController } from 'phosphor-react'
 import * as Dialog from '@radix-ui/react-dialog'
@@ -14,6 +14,8 @@ interface Game {
 
 export function CreateAdModal() {
     const [games, setGames] = useState<Game[]>([])
+    const [weekDays, setWeekDays] = useState<string[]>([])
+    const [useVoiceChannel, setUseVoiceChannel] = useState(false)
 
     useEffect(() => {
         fetch('http://localhost:3000/games')
@@ -27,6 +29,16 @@ export function CreateAdModal() {
             })
     }, [])
 
+    const handleCreateAd = (event: FormEvent) => {
+        event.preventDefault()
+        console.log('enviou o form')
+        const formData = new FormData(event.target as HTMLFormElement)
+        const data = Object.fromEntries(formData)
+        console.log('data', data)
+        console.log('weekdays', weekDays)
+        console.log('usevoicechanne', useVoiceChannel)
+    }
+
     return (
         <Dialog.Portal>
             <Dialog.Overlay className="bg-black/60 inset-0 fixed">
@@ -34,7 +46,10 @@ export function CreateAdModal() {
                     <Dialog.Title className="text-xl font-black">
                         Publique um anuncio
                     </Dialog.Title>
-                    <form className="mt-2 flex flex-col gap-2 max-h-fit text-sm">
+                    <form
+                        onSubmit={handleCreateAd}
+                        className="mt-2 flex flex-col gap-2 max-h-fit text-sm"
+                    >
                         <div className="flex-col gap-1 flex ">
                             <label
                                 id="game"
@@ -46,14 +61,15 @@ export function CreateAdModal() {
                             <select
                                 id="game"
                                 name="game"
+                                defaultValue={''}
                                 className="bg-zinc-900 py-2 px-4 rouded text-sm text-zinc-500 appearance-none"
                             >
-                                <option value="" selected disabled>
+                                <option key={12312} value={''} disabled>
                                     Selectione o game que deseja jogar
                                 </option>
                                 {games.map((game) => {
                                     return (
-                                        <option value={game.id}>
+                                        <option key={game.id} value={game.id}>
                                             {game.title}
                                         </option>
                                     )
@@ -64,6 +80,7 @@ export function CreateAdModal() {
                             <label htmlFor="name">Seu nome ou nickname</label>
                             <Input
                                 id="name"
+                                name="name"
                                 placeholder="Como te chamam no game?"
                             />
                         </div>
@@ -74,6 +91,7 @@ export function CreateAdModal() {
                             </label>
                             <Input
                                 id="yearsPlaying"
+                                name="yearsPlaying"
                                 type="number"
                                 placeholder="Tudo bem ser Zero"
                             />
@@ -82,6 +100,7 @@ export function CreateAdModal() {
                             <label htmlFor="discord">Qual seu Discord</label>
                             <Input
                                 id="discord"
+                                name="discord"
                                 type="text"
                                 placeholder="Usuário#0000"
                             />
@@ -95,52 +114,82 @@ export function CreateAdModal() {
                                     <ToggleGroup.Root
                                         type="multiple"
                                         className="grid grid-cols-4"
+                                        onValueChange={setWeekDays}
+                                        value={weekDays}
                                     >
                                         <ToggleGroup.Item
                                             value="1"
-                                            className="w-8 h-8 rounded bg-zinc-900"
+                                            className={`w-8 h-8 rounded  ${
+                                                weekDays.includes('1')
+                                                    ? 'bg-violet-500'
+                                                    : 'bg-zinc-900'
+                                            }`}
                                             title="Domingo"
                                         >
                                             D
                                         </ToggleGroup.Item>
                                         <ToggleGroup.Item
                                             value="2"
-                                            className="w-8 h-8 rounded bg-zinc-900"
+                                            className={`w-8 h-8 rounded  ${
+                                                weekDays.includes('2')
+                                                    ? 'bg-violet-500'
+                                                    : 'bg-zinc-900'
+                                            }`}
                                             title="Segunda"
                                         >
                                             S
                                         </ToggleGroup.Item>
                                         <ToggleGroup.Item
                                             value="3"
-                                            className="w-8 h-8 rounded bg-zinc-900"
+                                            className={`w-8 h-8 rounded  ${
+                                                weekDays.includes('3')
+                                                    ? 'bg-violet-500'
+                                                    : 'bg-zinc-900'
+                                            }`}
                                             title="Terça"
                                         >
                                             T
                                         </ToggleGroup.Item>
                                         <ToggleGroup.Item
                                             value="4"
-                                            className="w-8 h-8 rounded bg-zinc-900"
+                                            className={`w-8 h-8 rounded  ${
+                                                weekDays.includes('4')
+                                                    ? 'bg-violet-500'
+                                                    : 'bg-zinc-900'
+                                            }`}
                                             title="Quarta"
                                         >
                                             Q
                                         </ToggleGroup.Item>
                                         <ToggleGroup.Item
                                             value="5"
-                                            className="w-8 h-8 rounded bg-zinc-900"
+                                            className={`w-8 h-8 rounded  ${
+                                                weekDays.includes('5')
+                                                    ? 'bg-violet-500'
+                                                    : 'bg-zinc-900'
+                                            }`}
                                             title="Quinta"
                                         >
                                             Q
                                         </ToggleGroup.Item>
                                         <ToggleGroup.Item
                                             value="6"
-                                            className="w-8 h-8 rounded bg-zinc-900"
+                                            className={`w-8 h-8 rounded  ${
+                                                weekDays.includes('6')
+                                                    ? 'bg-violet-500'
+                                                    : 'bg-zinc-900'
+                                            }`}
                                             title="Sexta"
                                         >
                                             S
                                         </ToggleGroup.Item>
                                         <ToggleGroup.Item
                                             value="7"
-                                            className="w-8 h-8 rounded bg-zinc-900"
+                                            className={`w-8 h-8 rounded  ${
+                                                weekDays.includes('7')
+                                                    ? 'bg-violet-500'
+                                                    : 'bg-zinc-900'
+                                            }`}
                                             title="Sábado"
                                         >
                                             S
@@ -155,11 +204,13 @@ export function CreateAdModal() {
                                 <div className="grid grid-cols-2 gap-1">
                                     <Input
                                         id="hourStart"
+                                        name="hourStart"
                                         type="time"
                                         placeholder="De"
                                     />
                                     <Input
                                         id="hourEnd"
+                                        name="hourEnd"
                                         type="time"
                                         placeholder="Até"
                                     />
@@ -167,14 +218,19 @@ export function CreateAdModal() {
                             </div>
                         </div>
 
-                        <div className="mt-2 flex gap-1 text-sm">
-                            <CheckBox.Root className="w-6 h-6 p-1 rounded bg-zinc-900">
+                        <label className="mt-2 flex gap-1 text-sm">
+                            <CheckBox.Root
+                                onCheckedChange={(checked) => {
+                                    setUseVoiceChannel(checked as boolean)
+                                }}
+                                className="w-6 h-6 p-1 rounded bg-zinc-900"
+                            >
                                 <CheckBox.Indicator>
                                     <Check className="w-4 h-4 text-emerald-400" />
                                 </CheckBox.Indicator>
                             </CheckBox.Root>
                             Costumo me conectar ao chat de voz
-                        </div>
+                        </label>
 
                         <footer className="mt-2 flex justify-end gap-2">
                             <Dialog.Close
