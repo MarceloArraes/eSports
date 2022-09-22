@@ -6,6 +6,7 @@ import * as CheckBox from '@radix-ui/react-checkbox'
 import * as Select from '@radix-ui/react-select'
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
 import { GAMES } from '../utils/games'
+import axios from 'axios'
 
 interface Game {
     id: string
@@ -18,18 +19,17 @@ export function CreateAdModal() {
     const [useVoiceChannel, setUseVoiceChannel] = useState(false)
 
     useEffect(() => {
-        fetch('http://localhost:3000/games')
-            .then((res) => res.json())
-            .then((data) => {
-                setGames(data)
-                console.log(data)
+        axios('http://localhost:3000/games')
+            .then((res) => {
+                setGames(res.data)
+                console.log(res.data)
             })
             .catch((err) => {
                 console.log('ERROR', err)
             })
     }, [])
 
-    const handleCreateAd = (event: FormEvent) => {
+    const handleCreateAd = async (event: FormEvent) => {
         event.preventDefault()
         console.log('enviou o form')
         const formData = new FormData(event.target as HTMLFormElement)
@@ -37,6 +37,20 @@ export function CreateAdModal() {
         console.log('data', data)
         console.log('weekdays', weekDays)
         console.log('usevoicechanne', useVoiceChannel)
+        if (!data.name) return
+        try {
+            await axios.post(`http://localhost:3000/games/${data.game}/ads`, {
+                name: data.name,
+                yearsPlaying: Number(data.yearsPlaying),
+                discord: data.discord,
+                weekDays: weekDays.map(Number),
+                hourStart: data.hourStart,
+                hourEnd: data.hourEnd,
+                useVoiceChannel: useVoiceChannel,
+            })
+        } catch (error) {
+            console.log('erro', error)
+        }
     }
 
     return (

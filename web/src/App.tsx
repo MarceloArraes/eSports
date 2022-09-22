@@ -5,6 +5,7 @@ import { CreateAdBanner } from './components/CreateAdBanner'
 import logoImg from './assets/logo-nlw-esports.png'
 import * as Dialog from '@radix-ui/react-dialog'
 import { CreateAdModal } from './components/CreateAdModal'
+import axios from 'axios'
 
 interface Game {
     id: string
@@ -19,11 +20,10 @@ function App() {
     const [games, setGames] = useState<Game[]>([])
 
     useEffect(() => {
-        fetch('http://localhost:3000/games')
-            .then((res) => res.json())
-            .then((data) => {
-                setGames(data)
-                console.log(data)
+        axios('http://localhost:3000/games')
+            .then((res) => {
+                setGames(res.data)
+                console.log(res.data)
             })
             .catch((err) => {
                 console.log('ERROR', err)
