@@ -4504,7 +4504,7 @@ expo-modules-autolinking@0.10.3:
     find-up "^5.0.0"
     fs-extra "^9.1.0"
 
-expo-modules-core@0.11.5:
+expo-modules-core@0.11.5, expo-modules-core@~0.11.5:
   version "0.11.5"
   resolved "https://registry.npmjs.org/expo-modules-core/-/expo-modules-core-0.11.5.tgz"
   integrity sha512-KmTHtaL21M1AzKOmu3YM5K8ddCbbr6wgooG4uCb+o+7zZXe+BPP4jAPs5LLez1Et34OQcyjopxUpJ8r43HImvQ==

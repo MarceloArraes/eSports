@@ -35,7 +35,6 @@ export function Game() {
     fetch(`http://192.168.15.33:3000/ads/${adsId}/discord`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("DISCORDDDD", data);
         setDiscordDuoSelected(data.discord);
       });
   };
@@ -44,7 +43,6 @@ export function Game() {
     fetch(`http://192.168.15.33:3000/games/${game.id}/ads`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("DATSSSS", data);
         setDuos(data);
       });
   }, []);
