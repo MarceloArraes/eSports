@@ -3,10 +3,9 @@ import { Input } from './Form/Input'
 import { Check, GameController } from 'phosphor-react'
 import * as Dialog from '@radix-ui/react-dialog'
 import * as CheckBox from '@radix-ui/react-checkbox'
-import * as Select from '@radix-ui/react-select'
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
-import { GAMES } from '../utils/games'
 import axios from 'axios'
+const SERVER_ADDRESS = 'https://cute-jade-caiman-sock.cyclic.app'
 
 interface Game {
     id: string
@@ -19,7 +18,7 @@ export function CreateAdModal() {
     const [useVoiceChannel, setUseVoiceChannel] = useState(false)
 
     useEffect(() => {
-        axios('http://localhost:3000/games')
+        axios(SERVER_ADDRESS + '/games')
             .then((res) => {
                 setGames(res.data)
                 console.log(res.data)
@@ -39,7 +38,7 @@ export function CreateAdModal() {
         console.log('usevoicechanne', useVoiceChannel)
         if (!data.name) return
         try {
-            await axios.post(`http://localhost:3000/games/${data.game}/ads`, {
+            await axios.post(SERVER_ADDRESS + `/games/${data.game}/ads`, {
                 name: data.name,
                 yearsPlaying: Number(data.yearsPlaying),
                 discord: data.discord,

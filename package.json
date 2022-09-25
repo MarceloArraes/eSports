@@ -13,6 +13,7 @@
   },
   "name": "esports",
   "version": "1.0.0",
+  "type": "module",
   "main": "./server/src/server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
