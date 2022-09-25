@@ -5,7 +5,7 @@ import * as Dialog from '@radix-ui/react-dialog'
 import * as CheckBox from '@radix-ui/react-checkbox'
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
 import axios from 'axios'
-const SERVER_ADDRESS = 'https://cute-jade-caiman-sock.cyclic.app'
+const SERVER_ADDRESS = 'http://localhost:3000'
 
 interface Game {
     id: string
