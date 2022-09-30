@@ -1,10 +1,11 @@
 {
   "expo": {
     "name": "mobile",
-    "slug": "mobile",
+    "slug": "esports-duo-matchmaker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "scheme": "esports-duo-matchmaker",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",

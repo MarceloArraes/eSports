@@ -10,6 +10,7 @@ import { GameCardProps } from "../../components/GameCard";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Background } from "../../components/Background";
 import { useNavigation } from "@react-navigation/native";
+import { Signin } from "../Signin";
 
 export const Home = () => {
   const [gamesList, setGamesList] = useState<GameCardProps[]>([]);
@@ -43,7 +44,7 @@ export const Home = () => {
         </SafeAreaView>
       </Background>
     );
-
+  return <Signin />;
   return (
     <Background>
       <SafeAreaView style={styles.container}>
