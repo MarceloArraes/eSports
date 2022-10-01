@@ -11,9 +11,27 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Background } from "../../components/Background";
 import { useNavigation } from "@react-navigation/native";
 import { Signin } from "../Signin";
+import type { AuthSessionResult } from "expo-auth-session";
+
+export type IUser = {
+  accent_color: number;
+  avatar: string;
+  avatar_decoration: string | null;
+  banner: string | null;
+  banner_color: string;
+  discriminator: string;
+  flags: number;
+  id: string;
+  locale: string;
+  mfa_enabled: boolean;
+  public_flags: number;
+  username: string;
+} | null;
 
 export const Home = () => {
   const [gamesList, setGamesList] = useState<GameCardProps[]>([]);
+  const [user, setUser] = useState<IUser>(null);
+  const [authSuccess, setAuthSuccess] = useState<Boolean>(false);
   const [loading, setLoading] = useState<Boolean>(true);
   const navigation = useNavigation();
   useEffect(() => {
@@ -44,7 +62,9 @@ export const Home = () => {
         </SafeAreaView>
       </Background>
     );
-  return <Signin />;
+  if (authSuccess == false)
+    return <Signin setAuthSuccess={setAuthSuccess} setUser={setUser} />;
+
   return (
     <Background>
       <SafeAreaView style={styles.container}>
