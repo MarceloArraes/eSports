@@ -6,10 +6,10 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   logo: {
-    width: 214,
+    /* width: 214,
     height: 120,
     marginBottom: 48,
-    marginTop: 74,
+    marginTop: 74, */
   },
   contentList: {
     paddingLeft: 32,

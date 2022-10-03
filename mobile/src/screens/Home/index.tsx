@@ -62,6 +62,7 @@ export const Home = () => {
         </SafeAreaView>
       </Background>
     );
+
   if (authSuccess == false)
     return <Signin setAuthSuccess={setAuthSuccess} setUser={setUser} />;
 
