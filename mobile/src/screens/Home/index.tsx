@@ -12,25 +12,26 @@ import { Background } from "../../components/Background";
 import { useNavigation } from "@react-navigation/native";
 import { Signin } from "../Signin";
 import type { AuthSessionResult } from "expo-auth-session";
+import { WelcomeCard } from "../../components/WelcomeCard";
 
 export type IUser = {
-  accent_color: number;
-  avatar: string;
-  avatar_decoration: string | null;
-  banner: string | null;
-  banner_color: string;
-  discriminator: string;
-  flags: number;
-  id: string;
-  locale: string;
-  mfa_enabled: boolean;
-  public_flags: number;
-  username: string;
-} | null;
+  accent_color?: number;
+  avatar?: string;
+  avatar_decoration?: string | null;
+  banner?: string | null;
+  banner_color?: string;
+  discriminator?: string;
+  flags?: number;
+  id?: string;
+  locale?: string;
+  mfa_enabled?: boolean;
+  public_flags?: number;
+  username?: string;
+};
 
 export const Home = () => {
   const [gamesList, setGamesList] = useState<GameCardProps[]>([]);
-  const [user, setUser] = useState<IUser>(null);
+  const [user, setUser] = useState<IUser>();
   const [authSuccess, setAuthSuccess] = useState<Boolean>(false);
   const [loading, setLoading] = useState<Boolean>(true);
   const navigation = useNavigation();
@@ -70,6 +71,11 @@ export const Home = () => {
     <Background>
       <SafeAreaView style={styles.container}>
         <Image source={logoImg} style={styles.logo} />
+        <WelcomeCard
+          username={user?.username}
+          locale={user?.locale}
+          avatar={user?.avatar}
+        />
         <Heading
           title="Encontre seu duo!"
           subtitle="Selecione o game que deseja jogar..."
