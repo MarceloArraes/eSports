@@ -66,6 +66,7 @@ export const Home = () => {
 
   if (authSuccess == false)
     return <Signin setAuthSuccess={setAuthSuccess} setUser={setUser} />;
+  console.log("USER FULL", user);
 
   return (
     <Background>
@@ -73,7 +74,7 @@ export const Home = () => {
         <Image source={logoImg} style={styles.logo} />
         <WelcomeCard
           username={user?.username}
-          locale={user?.locale}
+          id={user?.id}
           avatar={user?.avatar}
         />
         <Heading
