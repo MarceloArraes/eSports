@@ -4,11 +4,13 @@ import { logoImg } from "../../assets/logo-nlw-esports.png";
 import { Heading } from "../../components/Heading";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as AuthSession from "expo-auth-session";
+import * as SecureStore from "expo-secure-store";
+import { EvilIcons } from "@expo/vector-icons";
 
 import { styles } from "./styles";
 import { THEME } from "../../theme";
 import { GameController } from "phosphor-react-native";
-import { Dispatch } from "react";
+import React, { Dispatch, useEffect, useState } from "react";
 import { IUser } from "../Home";
 // imagem do usário.
 //https://cdn.discordapp.com/avatars/513107560568717323/00048d1392244638e76a7e4f39af4f80.png
@@ -34,8 +36,23 @@ type AuthSessionResult = {
   url?: string;
 };
 
-const setUserData = ({ setUser }: IsetUser, response: AuthSessionResult) => {
-  const accessToken = response.params.access_token;
+async function save(key: string, value: string) {
+  await SecureStore.setItemAsync(key, value);
+}
+
+async function getValueFor(key: string) {
+  let result = await SecureStore.getItemAsync(key);
+  if (result) {
+    alert("🔐 Here's your value 🔐 \n" + result);
+    return result;
+  } else {
+    alert("No values stored under that key.");
+    return null;
+  }
+}
+
+const setUserData = ({ setUser }: IsetUser, response: string) => {
+  let accessToken = response;
 
   fetch("https://discord.com/api/users/@me", {
     headers: {
@@ -49,6 +66,7 @@ const setUserData = ({ setUser }: IsetUser, response: AuthSessionResult) => {
 };
 
 export function Signin({ setAuthSuccess, setUser }: Props) {
+  const [loadingUserAuth, setLoadingUserAuth] = useState(true);
   const handleSignin = async () => {
     const response = (await AuthSession.startAsync({
       authUrl:
@@ -57,10 +75,41 @@ export function Signin({ setAuthSuccess, setUser }: Props) {
     console.log("RESPONSE", response);
 
     if ((response.type = "success")) {
-      setUserData({ setUser }, response);
+      setUserData({ setUser }, response.params.access_token);
       setAuthSuccess(true);
     }
   };
+
+  useEffect(() => {
+    async function getAuthTokenFromLocal() {
+      const result = await getValueFor("UserAuthToken");
+      if (result) setUserData({ setUser }, result);
+    }
+    getAuthTokenFromLocal();
+    setLoadingUserAuth(false);
+  }, []);
+
+  const loading = () => {
+    if (loadingUserAuth) {
+      return (
+        <Background>
+          <SafeAreaView style={styles.container}>
+            <EvilIcons name="spinner-3" size={48} color="white" />
+          </SafeAreaView>
+        </Background>
+      );
+    } else return null;
+  };
+  {
+    loadingUserAuth && (
+      <Background>
+        <SafeAreaView style={styles.container}>
+          <EvilIcons name="spinner-3" size={48} color="white" />
+        </SafeAreaView>
+      </Background>
+    );
+  }
+  loading();
   return (
     <Background>
       <SafeAreaView style={styles.container}>
